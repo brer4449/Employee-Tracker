@@ -1,0 +1,23 @@
+DROP DATABASE IF EXISTS jobs_db;
+CREATE DATABASE jobs_db;
+USE jobs_db;
+
+CREATE TABLE employee(
+  id INTEGER(11) AUTO_INCREMENT NOT NULL,
+  first_name VARCHAR(30),
+  last_name VARCHAR(30),
+  PRIMARY KEY(id)
+);
+
+CREATE TABLE role(
+  id INTEGER(11) AUTO_INCREMENT NOT NULL,
+  title VARCHAR(30),
+  salary DECIMAL(2),
+  PRIMARY KEY(id)
+);
+
+CREATE TABLE department(
+  id INTEGER(11) AUTO_INCREMENT NOT NULL,
+  name VARCHAR(30),
+  PRIMARY KEY(id)
+);
