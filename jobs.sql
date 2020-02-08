@@ -2,13 +2,6 @@ DROP DATABASE IF EXISTS jobs_db;
 CREATE DATABASE jobs_db;
 USE jobs_db;
 
-CREATE TABLE employees(
-  id INTEGER(11) AUTO_INCREMENT NOT NULL,
-  first_name VARCHAR(30),
-  last_name VARCHAR(30),
-  PRIMARY KEY(id)
-);
-
 CREATE TABLE roles(
   id INTEGER(11) AUTO_INCREMENT NOT NULL,
   title VARCHAR(30),
@@ -22,41 +15,50 @@ CREATE TABLE departments(
   PRIMARY KEY(id)
 );
 
---EMPLOYEES--
-INSERT INTO employees( first_name, last_name)
-VALUES("Jim", "Halpert");
+CREATE TABLE employees(
+  id INTEGER(11) AUTO_INCREMENT NOT NULL,
+  first_name VARCHAR(30),
+  last_name VARCHAR(30),
+  role_id INTEGER REFERENCES roles(id),
+  PRIMARY KEY(id)
+);
 
-INSERT INTO employees( first_name, last_name)
-VALUES("Oscar", "Martinez");
+INSERT INTO employees( first_name, last_name, role_id)
+VALUES("Jim", "Halpert", 1);
 
-INSERT INTO employees( first_name, last_name)
-VALUES("Pam", "Beasley");
+INSERT INTO employees( first_name, last_name, role_id)
+VALUES("Pam", "Beasley", 1);
 
-INSERT INTO employees( first_name, last_name)
-VALUES("Dwight", "Schrute");
+INSERT INTO employees( first_name, last_name, role_id)
+VALUES("Stanley", "Hudson", 1);
 
-INSERT INTO employees( first_name, last_name)
-VALUES("Kevin", "Malone");
+INSERT INTO employees( first_name, last_name, role_id)
+VALUES("Dwight", "Schrute", 1);
 
-INSERT INTO employees( first_name, last_name)
-VALUES("Angela", "Martin");
+INSERT INTO employees( first_name, last_name, role_id)
+VALUES("Kevin", "Malone", 2);
 
-INSERT INTO employees( first_name, last_name)
-VALUES("Stanley", "Hudson");
+INSERT INTO employees( first_name, last_name, role_id)
+VALUES("Angela", "Martin", 2);
 
-INSERT INTO employees( first_name, last_name)
-VALUES("Toby", "Flenderson");
+INSERT INTO employees( first_name, last_name, role_id)
+VALUES("Oscar", "Martinez", 3);
 
-INSERT INTO employees( first_name, last_name)
-VALUES("Creed", "Bratton");
+INSERT INTO employees( first_name, last_name, role_id)
+VALUES("Creed", "Bratton", 4);
 
-INSERT INTO employees( first_name, last_name)
-VALUES("Meredith", "Palmer");
+INSERT INTO employees( first_name, last_name, role_id)
+VALUES("Toby", "Flenderson", 5);
 
-INSERT INTO employees( first_name, last_name)
-VALUES("Kelly", "Kapoor");
+INSERT INTO employees( first_name, last_name, role_id)
+VALUES("Meredith", "Palmer", 6);
 
---ROLES--
+INSERT INTO employees( first_name, last_name, role_id)
+VALUES("Kelly", "Kapoor", 7);
+
+INSERT INTO employees (first_name, last_name, role_id)
+VALUES("Michael", "Scott", 7);
+
 INSERT INTO roles( title, salary)
 VALUES("Sales Rep", 10.5);
 
@@ -78,7 +80,9 @@ VALUES("Supplier Relations Rep", 10.5);
 INSERT INTO roles( title, salary)
 VALUES("Customer Service Rep", 10.5);
 
---DEPARTMENTS--
+INSERT INTO departments (name)
+VALUES("Management");
+
 INSERT INTO departments( name)
 VALUES("Sales");
 

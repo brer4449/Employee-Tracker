@@ -57,7 +57,31 @@ let viewEmployees = () => {
   connection.query("SELECT * FROM employees", function(err, res) {
     if (err) throw err;
     console.table(res);
-    //ADD THIS LATER!
     connection.end();
   });
+};
+
+let viewByDepartment = () => {
+  inquirer
+    .prompt({
+      name: "dept",
+      type: "list",
+      message: "Please choose which department you want to search:",
+      choices: [
+        "Management",
+        "Sales",
+        "Accounting",
+        "Quality Assurance",
+        "Customer Relations",
+        "HR"
+      ]
+    })
+    .then(answer => {
+      // console.log(answer.dept);
+      connection.query("SELECT * FROM departments", function(err, res) {
+        if (err) throw err;
+        console.table(res);
+        connection.end();
+      });
+    });
 };
