@@ -33,12 +33,31 @@ function afterConnection() {
       ]
     })
     .then(answer => {
-      connection.query("SELECT * FROM employees", function(err, res) {
-        if (err) throw err;
-        console.table(res);
-        console.log(answer.choice);
-        //ADD THIS LATER!
-        connection.end();
-      });
+      switch (answer.choice) {
+        case "View All Employees":
+          viewEmployees();
+          break;
+        case "View All Employees by Department":
+          viewByDepartment();
+          break;
+        case "View All Employees by Manager":
+          viewByManager();
+          break;
+        case "Add Employee":
+          addEmployee();
+          break;
+        case "Update Employee Role":
+          updateRole();
+          break;
+      }
     });
 }
+
+let viewEmployees = () => {
+  connection.query("SELECT * FROM employees", function(err, res) {
+    if (err) throw err;
+    console.table(res);
+    //ADD THIS LATER!
+    connection.end();
+  });
+};
