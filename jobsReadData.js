@@ -78,10 +78,67 @@ let viewByDepartment = () => {
     })
     .then(answer => {
       // console.log(answer.dept);
-      connection.query("SELECT * FROM departments", function(err, res) {
-        if (err) throw err;
-        console.table(res);
-        connection.end();
+      connection.query(
+        "SELECT first_name, last_name FROM employees WHERE ?",
+        [{ role_id: 1 }],
+        function(err, res) {
+          if (err) throw err;
+          console.table(res);
+          connection.end();
+        }
+      );
+    });
+};
+
+let viewByManager = () => {
+  inquirer
+    .prompt({
+      name: "boss",
+      type: "list",
+      message:
+        "Please pick which manager you'd like to see the underlings for:",
+      choices: ["list of managers"]
+    })
+    .then(answer => {
+      console.log(answer.boss);
+    });
+};
+
+let addEmployee = () => {
+  inquirer
+    .prompt([
+      {
+        name: "firstName",
+        type: "input",
+        message: "What is the person's first name?"
+      },
+      {
+        name: "lastName",
+        type: "input",
+        message: "What is the person's last name?"
+      },
+      {
+        name: "position",
+        type: "list",
+        message: "Please select the most appropriate role for this person: ",
+        choices: [
+          "1.Management",
+          "2.Sales",
+          "3.Accounting",
+          "4.Quality Assurance",
+          "5.Customer Relations",
+          "6.HR"
+        ]
+      }
+    ])
+    .then(answer => {
+      console.log(answer.position[0]);
+
+      connection.query("INSERT INTO employees SET ?", {
+        first_name: answer.firstName,
+        last_name: answer.lastName,
+        role_id: answer.position[0]
       });
+      connection.end();
     });
 };

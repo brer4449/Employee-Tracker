@@ -6,12 +6,13 @@ CREATE TABLE roles(
   id INTEGER(11) AUTO_INCREMENT NOT NULL,
   title VARCHAR(30),
   salary DECIMAL(2),
+  dept_id INTEGER REFERENCES departments(id),
   PRIMARY KEY(id)
 );
 
 CREATE TABLE departments(
   id INTEGER(11) AUTO_INCREMENT NOT NULL,
-  name VARCHAR(30),
+  dept_name VARCHAR(30),
   PRIMARY KEY(id)
 );
 
@@ -20,6 +21,7 @@ CREATE TABLE employees(
   first_name VARCHAR(30),
   last_name VARCHAR(30),
   role_id INTEGER REFERENCES roles(id),
+  manager_id INTEGER REFERENCES departments(dept_id),
   PRIMARY KEY(id)
 );
 
@@ -59,41 +61,41 @@ VALUES("Kelly", "Kapoor", 7);
 INSERT INTO employees (first_name, last_name, role_id)
 VALUES("Michael", "Scott", 7);
 
-INSERT INTO roles( title, salary)
-VALUES("Sales Rep", 10.5);
+INSERT INTO roles( title, salary, dept_id)
+VALUES("Sales Rep", 10.5, 2);
 
-INSERT INTO roles( title, salary)
-VALUES("Accountant", 10.5);
+INSERT INTO roles( title, salary, dept_id)
+VALUES("Accountant", 10.5, 3);
 
-INSERT INTO roles( title, salary)
-VALUES("Head Accountant", 10.5);
+INSERT INTO roles( title, salary, dept_id)
+VALUES("Head Accountant", 10.5, 3);
 
-INSERT INTO roles( title, salary)
-VALUES("Quality Assurance Director", 10.5);
+INSERT INTO roles( title, salary, dept_id)
+VALUES("Quality Assurance Director", 10.5, 4);
 
-INSERT INTO roles( title, salary)
-VALUES("Head of Human Resources", 10.5);
+INSERT INTO roles( title, salary, dept_id)
+VALUES("Head of Human Resources", 10.5, 6);
 
-INSERT INTO roles( title, salary)
-VALUES("Supplier Relations Rep", 10.5);
+INSERT INTO roles( title, salary, dept_id)
+VALUES("Supplier Relations Rep", 10.5, 5);
 
-INSERT INTO roles( title, salary)
-VALUES("Customer Service Rep", 10.5);
+INSERT INTO roles( title, salary, dept_id)
+VALUES("Customer Service Rep", 10.5, 5);
 
-INSERT INTO departments (name)
+INSERT INTO departments (dept_name)
 VALUES("Management");
 
-INSERT INTO departments( name)
+INSERT INTO departments( dept_name)
 VALUES("Sales");
 
-INSERT INTO departments( name)
+INSERT INTO departments( dept_name)
 VALUES("Accounting");
 
-INSERT INTO departments( name)
+INSERT INTO departments( dept_name)
 VALUES("Quality Assurance");
 
-INSERT INTO departments( name)
+INSERT INTO departments( dept_name)
 VALUES("Customer Relations");
 
-INSERT INTO departments( name)
+INSERT INTO departments( dept_name)
 VALUES("HR");
