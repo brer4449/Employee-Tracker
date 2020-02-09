@@ -151,6 +151,19 @@ const addEmployee = () => {
     });
 };
 
+const updateRole = () => {
+  inquirer
+    .prompt({
+      name: "promotion",
+      type: "list",
+      message: "Which employee would you like to promote (or demote)?",
+      choices: ["blah"]
+    })
+    .then(answer => {
+      console.log(answer);
+    });
+};
+
 const addRole = () => {
   inquirer
     .prompt([
