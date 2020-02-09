@@ -62,19 +62,19 @@ INSERT INTO employees (first_name, last_name, role_id)
 VALUES("Michael", "Scott", 7);
 
 INSERT INTO roles( title, salary, dept_id)
-VALUES("Sales Rep", 10.5, 2);
+VALUES("Sales Rep", 10.5, 1);
 
 INSERT INTO roles( title, salary, dept_id)
-VALUES("Accountant", 10.5, 3);
+VALUES("Accountant", 10.5, 2);
 
 INSERT INTO roles( title, salary, dept_id)
-VALUES("Head Accountant", 10.5, 3);
+VALUES("Head Accountant", 10.5, 2);
 
 INSERT INTO roles( title, salary, dept_id)
-VALUES("Quality Assurance Director", 10.5, 4);
+VALUES("Quality Assurance Director", 10.5, 3);
 
 INSERT INTO roles( title, salary, dept_id)
-VALUES("Head of Human Resources", 10.5, 6);
+VALUES("Head of Human Resources", 10.5, 4);
 
 INSERT INTO roles( title, salary, dept_id)
 VALUES("Supplier Relations Rep", 10.5, 5);
@@ -82,20 +82,23 @@ VALUES("Supplier Relations Rep", 10.5, 5);
 INSERT INTO roles( title, salary, dept_id)
 VALUES("Customer Service Rep", 10.5, 5);
 
-INSERT INTO departments (dept_name)
-VALUES("Management");
+INSERT INTO roles( title, salary, dept_id)
+VALUES("Manager", 15, 6)
 
-INSERT INTO departments( dept_name)
+INSERT INTO departments(dept_name)
 VALUES("Sales");
 
-INSERT INTO departments( dept_name)
+INSERT INTO departments(dept_name)
 VALUES("Accounting");
 
-INSERT INTO departments( dept_name)
+INSERT INTO departments(dept_name)
 VALUES("Quality Assurance");
 
-INSERT INTO departments( dept_name)
+INSERT INTO departments(dept_name)
+VALUES("HR");
+
+INSERT INTO departments(dept_name)
 VALUES("Customer Relations");
 
-INSERT INTO departments( dept_name)
-VALUES("HR");
+INSERT INTO departments (dept_name)
+VALUES("Management");

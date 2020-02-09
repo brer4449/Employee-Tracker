@@ -29,7 +29,8 @@ const start = () => {
         "View All Employees by Department",
         "View All Employees by Manager",
         "Add Employee",
-        "Update Employee Role"
+        "Update Employee Role",
+        "Add Role"
       ]
     })
     .then(answer => {
@@ -49,16 +50,22 @@ const start = () => {
         case "Update Employee Role":
           updateRole();
           break;
+        case "Add Role":
+          addRole();
+          break;
       }
     });
 };
 
 const viewEmployees = () => {
-  connection.query("SELECT * FROM employees", function(err, res) {
-    if (err) throw err;
-    console.table(res);
-    endSearch();
-  });
+  connection.query(
+    "SELECT title, first_name, last_name FROM employees INNER JOIN roles ON employees.role_id = roles.id",
+    function(err, res) {
+      if (err) throw err;
+      console.table(res);
+      endSearch();
+    }
+  );
 };
 
 const viewByDepartment = () => {
@@ -68,19 +75,21 @@ const viewByDepartment = () => {
       type: "list",
       message: "Please choose which department you want to search:",
       choices: [
-        "Management",
-        "Sales",
-        "Accounting",
-        "Quality Assurance",
-        "Customer Relations",
-        "HR"
+        "1.Sales",
+        "2.Accounting",
+        "3.Quality Assurance",
+        "4.Customer Relations",
+        "5.HR",
+        "6.Management"
       ]
     })
     .then(answer => {
+      //TO BE SOLVED!
       // console.log(answer.dept);
+      console.log(answer.dept[0]);
       connection.query(
-        "SELECT first_name, last_name FROM employees WHERE ?",
-        [{ role_id: 1 }],
+        "SELECT title, first_name, last_name FROM employees INNER JOIN roles ON employees.role_id = ?",
+        [{ dept_id: answer.dept[0] }],
         function(err, res) {
           if (err) throw err;
           console.table(res);
@@ -123,12 +132,12 @@ const addEmployee = () => {
         type: "list",
         message: "Please select the most appropriate role for this person: ",
         choices: [
-          "1.Management",
-          "2.Sales",
-          "3.Accounting",
-          "4.Quality Assurance",
-          "5.Customer Relations",
-          "6.HR"
+          "1.Sales",
+          "2.Accounting",
+          "3.Quality Assurance",
+          "4.Customer Relations",
+          "5.HR",
+          "6.Management"
         ]
       }
     ])
@@ -138,6 +147,37 @@ const addEmployee = () => {
         last_name: answer.lastName,
         role_id: answer.position[0]
       });
+      endSearch();
+    });
+};
+
+const addRole = () => {
+  inquirer
+    .prompt([
+      {
+        name: "role",
+        type: "input",
+        message: "What role would you like to add?"
+      },
+      {
+        name: "salary",
+        type: "number",
+        message: "What is the salary of this role?",
+        validate: function(value) {
+          if (isNaN(value) == false) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
+    ])
+    .then(answer => {
+      connection.query("INSERT INTO roles SET ?", {
+        title: answer.role,
+        salary: answer.salary
+      });
+      console.log("Role was successfully added!");
       endSearch();
     });
 };
