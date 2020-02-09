@@ -15,10 +15,10 @@ const connection = mysql.createConnection({
 connection.connect(function(err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId);
-  afterConnection();
+  start();
 });
 
-function afterConnection() {
+const start = () => {
   inquirer
     .prompt({
       name: "choice",
@@ -51,17 +51,17 @@ function afterConnection() {
           break;
       }
     });
-}
+};
 
-let viewEmployees = () => {
+const viewEmployees = () => {
   connection.query("SELECT * FROM employees", function(err, res) {
     if (err) throw err;
     console.table(res);
-    connection.end();
+    endSearch();
   });
 };
 
-let viewByDepartment = () => {
+const viewByDepartment = () => {
   inquirer
     .prompt({
       name: "dept",
@@ -84,13 +84,13 @@ let viewByDepartment = () => {
         function(err, res) {
           if (err) throw err;
           console.table(res);
-          connection.end();
+          endSearch();
         }
       );
     });
 };
 
-let viewByManager = () => {
+const viewByManager = () => {
   inquirer
     .prompt({
       name: "boss",
@@ -101,10 +101,11 @@ let viewByManager = () => {
     })
     .then(answer => {
       console.log(answer.boss);
+      endSearch();
     });
 };
 
-let addEmployee = () => {
+const addEmployee = () => {
   inquirer
     .prompt([
       {
@@ -132,13 +133,28 @@ let addEmployee = () => {
       }
     ])
     .then(answer => {
-      console.log(answer.position[0]);
-
       connection.query("INSERT INTO employees SET ?", {
         first_name: answer.firstName,
         last_name: answer.lastName,
         role_id: answer.position[0]
       });
-      connection.end();
+      endSearch();
+    });
+};
+
+endSearch = () => {
+  inquirer
+    .prompt({
+      name: "finish",
+      type: "confirm",
+      message: "Do you want to keep searching employee database?"
+    })
+    .then(answer => {
+      if (answer.finish === true) {
+        start();
+      } else {
+        console.log("Your search is complete, goodbye.");
+        connection.end();
+      }
     });
 };
