@@ -83,7 +83,7 @@ INSERT INTO roles( title, salary, dept_id)
 VALUES("Customer Service Rep", 10.5, 5);
 
 INSERT INTO roles( title, salary, dept_id)
-VALUES("Manager", 15, 6)
+VALUES("Manager", 15, 6);
 
 INSERT INTO departments(dept_name)
 VALUES("Sales");

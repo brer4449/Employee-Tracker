@@ -38,8 +38,8 @@ const start = () => {
         case "View All Employees":
           viewEmployees();
           break;
-        case "View All Employees by Department":
-          viewByDepartment();
+        case "View All Departments":
+          viewDepartment();
           break;
         case "View All Employees by Manager":
           viewByManager();
@@ -68,35 +68,12 @@ const viewEmployees = () => {
   );
 };
 
-const viewByDepartment = () => {
-  inquirer
-    .prompt({
-      name: "dept",
-      type: "list",
-      message: "Please choose which department you want to search:",
-      choices: [
-        "1.Sales",
-        "2.Accounting",
-        "3.Quality Assurance",
-        "4.Customer Relations",
-        "5.HR",
-        "6.Management"
-      ]
-    })
-    .then(answer => {
-      //TO BE SOLVED!
-      // console.log(answer.dept);
-      console.log(answer.dept[0]);
-      connection.query(
-        "SELECT title, first_name, last_name FROM employees INNER JOIN roles ON employees.role_id = ?",
-        [{ dept_id: answer.dept[0] }],
-        function(err, res) {
-          if (err) throw err;
-          console.table(res);
-          endSearch();
-        }
-      );
-    });
+const viewDepartment = () => {
+  connection.query("SELECT dept_name FROM departments", function(err, res) {
+    if (err) throw err;
+    console.table(res);
+    endSearch();
+  });
 };
 
 const viewByManager = () => {
@@ -211,3 +188,50 @@ endSearch = () => {
       }
     });
 };
+
+/*
+inquirer
+    .prompt({
+      name: "dept",
+      type: "list",
+      message: "Please choose which department you want to search:",
+      choices: [
+        "1.Sales",
+        "2.Accounting",
+        "3.Quality Assurance",
+        "4.Customer Relations",
+        "5.HR",
+        "6.Management"
+      ]
+    })
+    .then(answer => {
+      //TO BE SOLVED!
+      // console.log(answer.dept);
+      console.log(answer.dept[0]);
+      connection.query(
+        "SELECT title, first_name, last_name FROM employees INNER JOIN roles ON ? = employees.role_id",
+        [{ dept_id: answer.dept[0] }],
+        function(err, res) {
+          if (err) throw err;
+          console.table(res);
+          endSearch();
+        }
+      );
+    });
+*/
+
+/*
+-- While you are referencing the correct table.attribute you don't declare how that connection is made.
+role_id INTEGER REFERENCES roles(id),
+manager_id INTEGER REFERENCES departments(dept_id),
+​
+-- Here is what we want it to look like
+-- First we declare our attribute name, type and options
+role_id INT NOT NULL,
+manager_id INT,
+-- Then we declare our FOREIGN KEY connections
+-- Here we declare which attribute will be our connection to another table
+--    And we REFERENCE the table and attribute that connects the two pieces 	  of data
+FOREIGN KEY (role_id) REFERENCES roles(id),
+FOREIGN KEY (manager_id) REFERENCES employees(id)
+*/
