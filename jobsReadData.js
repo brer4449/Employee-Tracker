@@ -26,7 +26,8 @@ const start = () => {
       message: "What would you like to do?",
       choices: [
         "View All Employees",
-        "View All Employees by Department",
+        "View All Departments",
+        "View All Roles",
         "View All Employees by Manager",
         "Add Employee",
         "Update Employee Role",
@@ -40,6 +41,9 @@ const start = () => {
           break;
         case "View All Departments":
           viewDepartment();
+          break;
+        case "View All Roles":
+          viewRoles();
           break;
         case "View All Employees by Manager":
           viewByManager();
@@ -70,6 +74,14 @@ const viewEmployees = () => {
 
 const viewDepartment = () => {
   connection.query("SELECT dept_name FROM departments", function(err, res) {
+    if (err) throw err;
+    console.table(res);
+    endSearch();
+  });
+};
+
+const viewRoles = () => {
+  connection.query("SELECT title, salary FROM roles", function(err, res) {
     if (err) throw err;
     console.table(res);
     endSearch();
