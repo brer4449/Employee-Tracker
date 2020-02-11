@@ -70,7 +70,8 @@ const start = () => {
 //Displays all employees' first and last names as a table
 const viewEmployees = () => {
   connection.query(
-    "SELECT title, first_name, last_name FROM employees INNER JOIN roles ON employees.role_id = roles.id",
+    // "SELECT title, first_name, last_name FROM employees INNER JOIN roles ON employees.role_id",
+    "SELECT title, first_name, last_name FROM employees INNER JOIN roles ON employees.role_id = roles.role_id",
     function(err, res) {
       if (err) throw err;
       console.table(res);

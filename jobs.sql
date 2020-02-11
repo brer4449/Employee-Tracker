@@ -6,23 +6,23 @@ CREATE TABLE roles(
   role_id INTEGER(11) AUTO_INCREMENT NOT NULL,
   title VARCHAR(30),
   salary DECIMAL(2),
-  dept_id INTEGER REFERENCES departments(dept_id),
+  dept_id INTEGER REFERENCES departments(id),
   PRIMARY KEY(role_id)
 );
 
 CREATE TABLE departments(
-  dept_id INTEGER(11) AUTO_INCREMENT NOT NULL,
+  id INTEGER(11) AUTO_INCREMENT NOT NULL,
   dept_name VARCHAR(30),
-  PRIMARY KEY(dept_id)
+  PRIMARY KEY(id)
 );
 
 CREATE TABLE employees(
-  emp_id INTEGER(11) AUTO_INCREMENT NOT NULL,
+  id INTEGER(11) AUTO_INCREMENT NOT NULL,
   first_name VARCHAR(30),
   last_name VARCHAR(30),
-  role_id INTEGER REFERENCES roles(role_id),
-  manager_id INTEGER DEFAULT 0 REFERENCES employees(emp_id),
-  PRIMARY KEY(emp_id)
+  role_id INTEGER REFERENCES roles(id),
+  manager_id INTEGER REFERENCES departments(dept_id),
+  PRIMARY KEY(id)
 );
 
 INSERT INTO employees( first_name, last_name, role_id)
