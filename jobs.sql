@@ -3,26 +3,26 @@ CREATE DATABASE jobs_db;
 USE jobs_db;
 
 CREATE TABLE roles(
-  id INTEGER(11) AUTO_INCREMENT NOT NULL,
+  role_id INTEGER(11) AUTO_INCREMENT NOT NULL,
   title VARCHAR(30),
   salary DECIMAL(2),
-  dept_id INTEGER REFERENCES departments(id),
-  PRIMARY KEY(id)
+  dept_id INTEGER REFERENCES departments(dept_id),
+  PRIMARY KEY(role_id)
 );
 
 CREATE TABLE departments(
-  id INTEGER(11) AUTO_INCREMENT NOT NULL,
+  dept_id INTEGER(11) AUTO_INCREMENT NOT NULL,
   dept_name VARCHAR(30),
-  PRIMARY KEY(id)
+  PRIMARY KEY(dept_id)
 );
 
 CREATE TABLE employees(
-  id INTEGER(11) AUTO_INCREMENT NOT NULL,
+  emp_id INTEGER(11) AUTO_INCREMENT NOT NULL,
   first_name VARCHAR(30),
   last_name VARCHAR(30),
-  role_id INTEGER REFERENCES roles(id),
-  manager_id INTEGER REFERENCES departments(dept_id),
-  PRIMARY KEY(id)
+  role_id INTEGER REFERENCES roles(role_id),
+  manager_id INTEGER DEFAULT 0 REFERENCES employees(emp_id),
+  PRIMARY KEY(emp_id)
 );
 
 INSERT INTO employees( first_name, last_name, role_id)

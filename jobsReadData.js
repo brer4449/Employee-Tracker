@@ -18,6 +18,7 @@ connection.connect(function(err) {
   start();
 });
 
+//Inquirer list to direct what the user wants to do
 const start = () => {
   inquirer
     .prompt({
@@ -28,14 +29,15 @@ const start = () => {
         "View All Employees",
         "View All Roles",
         "View All Departments",
-        // "View All Employees by Manager",
         "Add Employee",
         "Add Role",
         "Add Department",
-        "Update Employee Role"
+        "Update Employee Role" //,
+        // "View All Employees by Manager",
       ]
     })
     .then(answer => {
+      //Switch statement to then run corresponding function
       switch (answer.choice) {
         case "View All Employees":
           viewEmployees();
@@ -46,9 +48,6 @@ const start = () => {
         case "View All Departments":
           viewDepartment();
           break;
-        // case "View All Employees by Manager":
-        //   viewByManager();
-        //   break;
         case "Add Employee":
           addEmployee();
           break;
@@ -61,10 +60,14 @@ const start = () => {
         case "Update Employee Role":
           updateRole();
           break;
+        // case "View All Employees by Manager":
+        //   viewByManager();
+        //   break;
       }
     });
 };
 
+//Displays all employees' first and last names as a table
 const viewEmployees = () => {
   connection.query(
     "SELECT title, first_name, last_name FROM employees INNER JOIN roles ON employees.role_id = roles.id",
@@ -76,6 +79,7 @@ const viewEmployees = () => {
   );
 };
 
+//Displays all roles that are currently in DB
 const viewRoles = () => {
   connection.query("SELECT title, salary FROM roles", function(err, res) {
     if (err) throw err;
@@ -84,6 +88,7 @@ const viewRoles = () => {
   });
 };
 
+//Displays all departments that are currently in DB
 const viewDepartment = () => {
   connection.query("SELECT dept_name FROM departments", function(err, res) {
     if (err) throw err;
@@ -92,21 +97,7 @@ const viewDepartment = () => {
   });
 };
 
-// const viewByManager = () => {
-//   inquirer
-//     .prompt({
-//       name: "boss",
-//       type: "list",
-//       message:
-//         "Please pick which manager you'd like to see the underlings for:",
-//       choices: ["list of managers"]
-//     })
-//     .then(answer => {
-//       console.log(answer.boss);
-//       endSearch();
-//     });
-// };
-
+//Adds an employee to the DB, as well as their role/dept ID
 const addEmployee = () => {
   inquirer
     .prompt([
@@ -144,6 +135,7 @@ const addEmployee = () => {
     });
 };
 
+//Adds a role to the DB, as well as a salary that the user sets
 const addRole = () => {
   inquirer
     .prompt([
@@ -175,6 +167,7 @@ const addRole = () => {
     });
 };
 
+//Adds a department to the DB
 addDept = () => {
   inquirer
     .prompt([
@@ -193,6 +186,7 @@ addDept = () => {
     });
 };
 
+//Intended to update role of employee (by selecting role id and then changing that...?) WIP
 const updateRole = () => {
   inquirer
     .prompt({
@@ -206,6 +200,23 @@ const updateRole = () => {
     });
 };
 
+// Sorts through employees by manager (WIP)
+// const viewByManager = () => {
+//   inquirer
+//     .prompt({
+//       name: "boss",
+//       type: "list",
+//       message:
+//         "Please pick which manager you'd like to see the underlings for:",
+//       choices: ["list of managers"]
+//     })
+//     .then(answer => {
+//       console.log(answer.boss);
+//       endSearch();
+//     });
+// };
+
+//Asks the user if they want to continue
 endSearch = () => {
   inquirer
     .prompt({
@@ -214,8 +225,10 @@ endSearch = () => {
       message: "Do you want to keep searching employee database?"
     })
     .then(answer => {
+      //If yes, bring them back to the start
       if (answer.finish === true) {
         start();
+        //If no, end the connection and bid them farewell
       } else {
         console.log("Your search is complete, goodbye.");
         connection.end();
