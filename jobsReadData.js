@@ -26,13 +26,13 @@ const start = () => {
       message: "What would you like to do?",
       choices: [
         "View All Employees",
-        "View All Departments",
         "View All Roles",
-        "View All Employees by Manager",
+        "View All Departments",
+        // "View All Employees by Manager",
         "Add Employee",
-        "Update Employee Role",
         "Add Role",
-        "Add Department"
+        "Add Department",
+        "Update Employee Role"
       ]
     })
     .then(answer => {
@@ -40,26 +40,26 @@ const start = () => {
         case "View All Employees":
           viewEmployees();
           break;
-        case "View All Departments":
-          viewDepartment();
-          break;
         case "View All Roles":
           viewRoles();
           break;
-        case "View All Employees by Manager":
-          viewByManager();
+        case "View All Departments":
+          viewDepartment();
           break;
+        // case "View All Employees by Manager":
+        //   viewByManager();
+        //   break;
         case "Add Employee":
           addEmployee();
-          break;
-        case "Update Employee Role":
-          updateRole();
           break;
         case "Add Role":
           addRole();
           break;
         case "Add Department":
           addDept();
+          break;
+        case "Update Employee Role":
+          updateRole();
           break;
       }
     });
@@ -76,14 +76,6 @@ const viewEmployees = () => {
   );
 };
 
-const viewDepartment = () => {
-  connection.query("SELECT dept_name FROM departments", function(err, res) {
-    if (err) throw err;
-    console.table(res);
-    endSearch();
-  });
-};
-
 const viewRoles = () => {
   connection.query("SELECT title, salary FROM roles", function(err, res) {
     if (err) throw err;
@@ -92,20 +84,28 @@ const viewRoles = () => {
   });
 };
 
-const viewByManager = () => {
-  inquirer
-    .prompt({
-      name: "boss",
-      type: "list",
-      message:
-        "Please pick which manager you'd like to see the underlings for:",
-      choices: ["list of managers"]
-    })
-    .then(answer => {
-      console.log(answer.boss);
-      endSearch();
-    });
+const viewDepartment = () => {
+  connection.query("SELECT dept_name FROM departments", function(err, res) {
+    if (err) throw err;
+    console.table(res);
+    endSearch();
+  });
 };
+
+// const viewByManager = () => {
+//   inquirer
+//     .prompt({
+//       name: "boss",
+//       type: "list",
+//       message:
+//         "Please pick which manager you'd like to see the underlings for:",
+//       choices: ["list of managers"]
+//     })
+//     .then(answer => {
+//       console.log(answer.boss);
+//       endSearch();
+//     });
+// };
 
 const addEmployee = () => {
   inquirer
@@ -141,19 +141,6 @@ const addEmployee = () => {
         role_id: answer.position[0]
       });
       endSearch();
-    });
-};
-
-const updateRole = () => {
-  inquirer
-    .prompt({
-      name: "promotion",
-      type: "list",
-      message: "Which employee would you like to promote (or demote)?",
-      choices: ["blah"]
-    })
-    .then(answer => {
-      console.log(answer);
     });
 };
 
@@ -203,6 +190,19 @@ addDept = () => {
       });
       console.log("Department was successfully added!");
       endSearch();
+    });
+};
+
+const updateRole = () => {
+  inquirer
+    .prompt({
+      name: "promotion",
+      type: "list",
+      message: "Which employee would you like to promote (or demote)?",
+      choices: ["blah"]
+    })
+    .then(answer => {
+      console.log(answer);
     });
 };
 
