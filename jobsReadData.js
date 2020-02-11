@@ -31,7 +31,8 @@ const start = () => {
         "View All Employees by Manager",
         "Add Employee",
         "Update Employee Role",
-        "Add Role"
+        "Add Role",
+        "Add Department"
       ]
     })
     .then(answer => {
@@ -56,6 +57,9 @@ const start = () => {
           break;
         case "Add Role":
           addRole();
+          break;
+        case "Add Department":
+          addDept();
           break;
       }
     });
@@ -180,6 +184,24 @@ const addRole = () => {
         salary: answer.salary
       });
       console.log("Role was successfully added!");
+      endSearch();
+    });
+};
+
+addDept = () => {
+  inquirer
+    .prompt([
+      {
+        name: "dept",
+        type: "input",
+        message: "What department would you like to add?"
+      }
+    ])
+    .then(answer => {
+      connection.query("INSERT INTO departments SET ?", {
+        dept_name: answer.dept
+      });
+      console.log("Department was successfully added!");
       endSearch();
     });
 };
