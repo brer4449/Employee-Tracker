@@ -11,17 +11,17 @@ CREATE TABLE roles(
 );
 
 CREATE TABLE departments(
-  id INTEGER(11) AUTO_INCREMENT NOT NULL,
+  dept_id INTEGER(11) AUTO_INCREMENT NOT NULL,
   dept_name VARCHAR(30),
-  PRIMARY KEY(id)
+  PRIMARY KEY(dept_id)
 );
 
 CREATE TABLE employees(
   id INTEGER(11) AUTO_INCREMENT NOT NULL,
   first_name VARCHAR(30),
   last_name VARCHAR(30),
-  role_id INTEGER REFERENCES roles(id),
-  manager_id INTEGER REFERENCES departments(dept_id),
+  role_id INTEGER REFERENCES roles(role_id),
+  manager_id INTEGER DEFAULT 0 REFERENCES departments(dept_id),
   PRIMARY KEY(id)
 );
 

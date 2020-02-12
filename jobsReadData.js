@@ -189,6 +189,68 @@ addDept = () => {
 
 //Intended to update role of employee (by selecting role id and then changing that...?) WIP
 const updateRole = () => {
+  connection.query(
+    "SELECT id, first_name, last_name, role_id FROM employees",
+    function(err, res) {
+      // console.log(res);
+      inquirer
+        .prompt({
+          name: "promotion",
+          type: "rawlist",
+          choices: function(value) {
+            let promoteArr = [];
+            for (let i = 0; i < res.length; i++) {
+              promoteArr.push(res[i].first_name + " " + res[i].last_name);
+            }
+            return promoteArr;
+          },
+          message: "Which employee would you like to promote (or demote)?"
+        })
+        .then(answer => {
+          for (let i = 0; i < res.length; i++) {
+            if (
+              res[i].first_name + " " + res[i].last_name ===
+              answer.promotion
+            ) {
+              let chosenEmp = res[i];
+              console.log("In the first .then", chosenEmp);
+              inquirer
+                .prompt({
+                  name: "updated_role",
+                  type: "list",
+                  message:
+                    "What new position would you like to assign this person?",
+                  choices: [
+                    "1.Sales",
+                    "2.Accounting",
+                    "3.Quality Assurance",
+                    "4.Customer Relations",
+                    "5.HR",
+                    "6.Management"
+                  ]
+                })
+                .then(answer => {
+                  console.log("In the second .then", answer.updated_role);
+                  connection.query(
+                    // "UPDATE employees SET role_id = ? WHERE first_name, last_name = ?",
+                    "UPDATE employees SET ? WHERE ?",
+                    [{ role_id: answer.updated_role[0] }, { id: chosenEmp.id }]
+                  );
+                  endSearch();
+                });
+            }
+          }
+          // console.log(answer);
+        });
+    }
+  );
+};
+
+/*
+const updateRole = () => {
+  connection.query("SELECT first_name, last_name, role_id FROM employees", function(){
+    
+  })
   inquirer
     .prompt({
       name: "promotion",
@@ -200,6 +262,7 @@ const updateRole = () => {
       console.log(answer);
     });
 };
+*/
 
 // Sorts through employees by manager (WIP)
 // const viewByManager = () => {
