@@ -21,7 +21,7 @@ This application is a CLI app. This app is intended for the working professional
 
 ## Instructions
 
-The user MUST have a dot env file to use the spotify portion of this app. First the user must open the file in terminal and then run the program "node liri.js" and then one of the four set of commands. Liri is meant to be told a command of "concert-this", "spotify-this-song", "movie-this", or "do-what-it-says" and it will then give you the corresponding data of that inquiry. Be sure to put your song/movie/artist in quotes, otherwise it will not work (ie. "node liri.js movie-this "the goonies"). The last command do-what-it-says runs what is in the random.txt file, so if the user wants a different song from "I Want It That Way", they must go into that file and change it to the desired song.
+The user must npm install inquirer and mysql. They should take the tables and seeds from the jobs.sql file and put them into WorkBench and then run that code. From there they will answer whatever question they want to, and have the option to end their search after each question.
 
 ## Functionality
 
