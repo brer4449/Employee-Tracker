@@ -6,67 +6,39 @@ Contain a link to a deployed version of the app
 Clearly list the technologies used in the app
 State your role in the app development -->
 
-<!--
-department:
-id - INT PRIMARY KEY
+## Table of contents
 
-name - VARCHAR(30) to hold department name✓
+- [General info](#general-info)
+- [Instructions](#instructions)
+- [Functionality](#functionality)
+- [Technologies](#technologies)
+- [Dependencies](#dependencies)
+- [Github Link](#github-link)
 
-role:
-id - INT PRIMARY KEY✓
+## General Info
 
-title -  VARCHAR(30) to hold role title✓
+This application is a CLI app. This app is intended for the working professional who wants to view, update, or add to their existing staff/departments. Using Node CLI, and being asked a series of questions via inquirer, the user will be able to navigate what action they would like to perform.
 
-salary -  DECIMAL to hold role salary✓
+## Instructions
 
-department_id -  INT to hold reference to department role belongs to
+The user MUST have a dot env file to use the spotify portion of this app. First the user must open the file in terminal and then run the program "node liri.js" and then one of the four set of commands. Liri is meant to be told a command of "concert-this", "spotify-this-song", "movie-this", or "do-what-it-says" and it will then give you the corresponding data of that inquiry. Be sure to put your song/movie/artist in quotes, otherwise it will not work (ie. "node liri.js movie-this "the goonies"). The last command do-what-it-says runs what is in the random.txt file, so if the user wants a different song from "I Want It That Way", they must go into that file and change it to the desired song.
 
-employee:
-id - INT PRIMARY KEY✓
+## Functionality
 
-first_name - VARCHAR(30) to hold employee first name✓
+![first example of working application](https://github.com/brer4449/homework12/blob/master/assets/jobs1.png)
+![second example of working application](https://github.com/brer4449/homework12/blob/master/assets/jobs2.png)
+![third example of working application](https://github.com/brer4449/homework12/blob/master/assets/jobs3.png)
+![fourth example of working application](https://github.com/brer4449/homework12/blob/master/assets/jobs4.png)
 
-last_name - VARCHAR(30) to hold employee last name✓
+## Technologies
 
-role_id - INT to hold reference to role employee has
+Node version 12.13.1
 
-manager_id - INT to hold reference to another employee that manager of the current employee. This field may be null if the employee has no manager
+## Dependencies
 
-Build a command-line application that at a minimum allows the user to:
+- Inquirer version 7.0.4
+- MySQL version 2.18.1
 
-Add departments, ✓
-Add roles, ✓
-Add employees ✓
+## Github Link
 
-View departments, ✓
-View roles, ✓
-View employees ✓
-
-Update employee roles
-
-Bonus points if you're able to:
-
-Update employee managers
-
-View employees by manager
-
-Delete departments, roles, and employees
-
-View the total utilized budget of a department -- ie the combined salaries of all employees in that department
-
-Hints
-
-You may wish to include a seed.sql file to pre-populate your database. This will make development of individual features much easier.
-
-Focus on getting the basic functionality completed before working on more advanced features.
-
-Review the week's activities for a refresher on MySQL.
-
-Check out SQL Bolt for some extra MySQL help.
-
-Minimum Requirements
-
-Functional application.
-
-GitHub repository with a unique name and a README describing the project.
--->
+https://github.com/brer4449/homework12
