@@ -5,7 +5,6 @@
 - [Functionality](#functionality)
 - [Technologies](#technologies)
 - [Dependencies](#dependencies)
-- [Github Link](#github-link)
 
 ## General Info
 
@@ -24,13 +23,11 @@ The user must npm install inquirer and mysql. They should take the tables and se
 
 ## Technologies
 
-Node version 12.13.1
+Node version 12
 
 ## Dependencies
 
+- Express version 4.17.1
 - Inquirer version 7.0.4
+- Lodash version 4.17.15
 - MySQL version 2.18.1
-
-## Github Link
-
-https://github.com/brer4449/homework12
